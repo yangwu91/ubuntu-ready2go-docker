@@ -13,7 +13,7 @@ RUN apt update -yy && \
     bash /tmp/miniconda3.sh -bfp /opt/miniconda3 && \
     cp /tmp/bfsu.condarc ${HOME}/.condarc && \
     conda update -y --all && \
-    conda install -y requests beautifulsoap4 biopython matplotlib tqdm && \
+    conda install -y requests beautifulsoup4 biopython matplotlib tqdm && \
     apt autoremove -yy && \
     apt autoclean -yy && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/cache/apt/* && \
