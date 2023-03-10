@@ -18,9 +18,9 @@ RUN apt update -qyy && \
 	conda config --add channels bioconda && \
 	conda config --add channels conda-forge && \
     conda update -y --all && \
-    conda install -qy python=3.10 r-base=4 conda-build conda-verify requests  numpy scipy pandas future beautifulsoup4 biopython matplotlib tqdm samtools bowtie2 bedtools bwa hisat blast fastqc minimap2 r-ggplot2 r-tidyverse bioconductor-edger bioconductor-deseq2 && \
-    apt autoremove -yy && \
-    apt autoclean -yy && \
+    conda install -qy python=3.10 r-base=4 conda-build conda-verify requests  numpy scipy pandas future beautifulsoup4 biopython matplotlib tqdm samtools bowtie2 bedtools bwa hisat2 blast fastqc minimap2 r-ggplot2 r-tidyverse bioconductor-edger bioconductor-deseq2 && \
+    apt autoremove -qyy && \
+    apt autoclean -qyy && \
     rm -rf /tmp/miniconda3.sh /var/lib/apt/lists/* /var/cache/apt/* && \
     conda clean -ayq && \
     chmod +x /entrypoint.sh && \
