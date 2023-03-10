@@ -2,7 +2,8 @@ FROM ubuntu:jammy
 
 MAINTAINER wuyang@drwu.ga
 
-COPY bfsu.* /tmp/
+COPY mirrors/* /tmp/
+COPY entrypoint.sh /entrypoint.sh
 
 ENV PATH="/opt/miniconda3/bin:$PATH"
 ENV TZ="Asia/Hong_Kong"
@@ -10,16 +11,22 @@ ENV DEBIAN_FRONTEND="noninteractive"
 
 RUN apt update -qyy && \
     apt upgrade -qyy && \
-    apt install -qyy wget vim curl zip unzip iputils-ping build-essential dnsutils ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison bzip2 ccache cmake cpio device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python3 python3-pip libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl xmlto xxd zlib1g-dev sed libcurl4-openssl-dev tzdata && \
+    apt install -qyy wget vim curl libcurl4-openssl-dev zip unzip iputils-ping libgl1-mesa-dev build-essential dnsutils bzip2 sed grep gawk tzdata && \
     wget -qO /tmp/miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     bash /tmp/miniconda3.sh -bfp /opt/miniconda3 && \
-    cp /tmp/bfsu.condarc ${HOME}/.condarc && \
+    conda config --add channels defaults && \
+	conda config --add channels bioconda && \
+	conda config --add channels conda-forge && \
     conda update -y --all && \
-    conda install -qy requests beautifulsoup4 biopython matplotlib tqdm && \
+    conda install -qy python=3.10 r-base=4 conda-build conda-verify requests  numpy scipy pandas future beautifulsoup4 biopython matplotlib tqdm samtools bowtie2 bedtools bwa hisat blast fastqc minimap2 r-ggplot2 r-tidyverse bioconductor-edger bioconductor-deseq2 && \
     apt autoremove -yy && \
     apt autoclean -yy && \
-    mv -f /tmp/bfsu.jammy.source.list /etc/apt/sources.list && \
-    rm -rf /tmp/* /var/lib/apt/lists/* /var/cache/apt/* && \
-    conda clean -ayq
+    rm -rf /tmp/miniconda3.sh /var/lib/apt/lists/* /var/cache/apt/* && \
+    conda clean -ayq && \
+    chmod +x /entrypoint.sh && \
+    mkdir -p /workspace && \
+    chmod 777 /workspace
 
-ENTRYPOINT ["/bin/bash"]
+WORKDIR /workspace
+
+ENTRYPOINT ["/entrypoint.sh"]
