@@ -18,8 +18,8 @@ RUN apt update -qyy && \
     conda install -qy requests beautifulsoup4 biopython matplotlib tqdm && \
     apt autoremove -yy && \
     apt autoclean -yy && \
-    rm -rf /tmp/* /var/lib/apt/lists/* /var/cache/apt/* && \
-    conda clean -ayq && \
     mv -f /tmp/bfsu.jammy.source.list /etc/apt/sources.list && \
+    rm -rf /tmp/* /var/lib/apt/lists/* /var/cache/apt/* && \
+    conda clean -ayq
 
 ENTRYPOINT ["/bin/bash"]
