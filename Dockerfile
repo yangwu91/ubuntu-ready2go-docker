@@ -21,6 +21,6 @@ RUN apt update -yy && \
     apt autoclean -yy && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/cache/apt/* && \
     conda clean -ayq && \
-    mv -f /tmp/bfsu.jammy.source.list /etc/apt/sources.list && \
+    mv -f /tmp/bfsu.jammy.source.list /etc/apt/sources.list
 
 ENTRYPOINT ["/bin/bash"]
