@@ -15,10 +15,10 @@ RUN apt update -qyy && \
     wget -qO /tmp/miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     bash /tmp/miniconda3.sh -bfp /opt/miniconda3 && \
     conda config --add channels defaults && \
-	conda config --add channels bioconda && \
-	conda config --add channels conda-forge && \
+    conda config --add channels bioconda && \
+    conda config --add channels conda-forge && \
     conda update -y --all && \
-    conda install -qy python=3.10 requests beautifulsoup4 tqdm && \
+    conda install -qy python=3.11 requests beautifulsoup4 tqdm && \
     apt autoremove -qyy && \
     apt autoclean -qyy && \
     rm -rf /tmp/miniconda3.sh /var/lib/apt/lists/* /var/cache/apt/* && \
