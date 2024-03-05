@@ -6,7 +6,7 @@ COPY mirrors/* /tmp/
 COPY entrypoint.sh /entrypoint.sh
 
 ENV PATH="/opt/miniconda3/bin:$PATH"
-ENV TZ="Asia/Hong_Kong"
+ENV TZ="Asia/Singapore"
 ENV DEBIAN_FRONTEND="noninteractive"
 
 RUN apt update -qyy && \
